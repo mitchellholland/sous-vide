@@ -1,0 +1,21 @@
+{
+  "name": "sous-vide-server",
+  "version": "1.0.0",
+  "main": "index.js",
+  "repository": "git@github.com:mitchellholland/sous-vide.git",
+  "author": "Mitchell Holland <mitchell@mitchellholland.net>",
+  "license": "MIT",
+  "dependencies": {
+    "@types/noble": "^0.0.37",
+    "@types/node": "^10.1.2",
+    "noble": "^1.9.1",
+    "nodemon": "^1.17.4",
+    "typescript": "^2.8.3"
+  },
+  "scripts": {
+    "install": "./node_modules/typescript/bin/tsc",
+    "build": "./node_modules/typescript/bin/tsc",
+    "start": "node index.js",
+    "watch": "./node_modules/typescript/bin/tsc -w"
+  }
+}
