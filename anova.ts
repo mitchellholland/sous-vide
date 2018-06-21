@@ -60,10 +60,9 @@ export const communication = (targetID: string, callback: (peripheral: noble.Per
 
     peripheral.once('disconnect', (error: string | null) => {
       console.log(`disconnected from: ${peripheral.uuid}`)
-      if (error !== null) {
+      if (error != null) {
         console.error(`error disconnecting from peripheral: ${error}`)
       }
-      process.exit()
     })
   }
 
