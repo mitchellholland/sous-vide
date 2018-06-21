@@ -13,104 +13,88 @@ export class ResponseFiller {
 
   respondWithTemperature = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('read temp\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { temperature: parseFloat(anovaResponse.toString().trim()) }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithSetTemperature = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('read set temp\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { setTemperature: parseFloat(anovaResponse.toString().trim()) }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithStatus = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('status\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { status: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithUnit = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('read unit\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { unit: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithTimer = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('read timer\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { timer: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithStart = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('start\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { start: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithStop = () => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer('stop\r'), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { stop: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithChangeSetTemperature = (temperature: number) => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer(`set temp ${temperature}\r`), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { temperature: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithChangeUnit = (celsius: boolean) => {
     const unit = celsius ? 'c' : 'f'
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer(`set unit ${unit}\r`), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { unit: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
   }
 
   respondWithStartTimer = () => {
     writeToCharacterisitc(this.communicationCharacteristic, new Buffer('start time\r'))
-    this.serverResponse.writeHead(200)
-    this.serverResponse.end()
+    this.responseTemplate({})
   }
 
   respondWithStopTimer = () => {
     writeToCharacterisitc(this.communicationCharacteristic, new Buffer('stop time\r'))
-    this.serverResponse.writeHead(200)
-    this.serverResponse.end()
+    this.responseTemplate({})
   }
 
   respondWithSetTimer = (minutes: number) => {
     responseFromWriteCallback(this.communicationCharacteristic, new Buffer(`set time ${minutes}\r`), (anovaResponse) => {
-      this.serverResponse.writeHead(200)
       const j = { timer: anovaResponse.toString().trim() }
-      this.serverResponse.write(JSON.stringify(j))
-      this.serverResponse.end()
+      this.responseTemplate(j)
     })
+  }
+
+  responseTemplate = (json: object) => {
+    this.serverResponse.writeHead(200)
+    this.serverResponse.write(JSON.stringify(json))
+    this.serverResponse.end()
   }
 }
